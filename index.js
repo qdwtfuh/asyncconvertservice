@@ -1,21 +1,12 @@
-function addTwoNumbers(l1, l2) {
-  const dummy = new ListNode(0);
-  let p = l1,
-    q = l2,
-    curr = dummy;
-  let carry = 0;
-  while (p !== null || q !== null) {
-    const x = p !== null ? p.val : 0;
-    const y = q !== null ? q.val : 0;
-    const sum = x + y + carry;
-    carry = Math.floor(sum / 10);
-    curr.next = new ListNode(sum % 10);
-    curr = curr.next;
-    if (p !== null) p = p.next;
-    if (q !== null) q = q.next;
+function rotate(matrix) {
+  const n = matrix.length;
+  for (let i = 0; i < Math.floor(n / 2); i++) {
+    for (let j = i; j < n - i - 1; j++) {
+      const temp = matrix[i][j];
+      matrix[i][j] = matrix[n - j - 1][i];
+      matrix[n - j - 1][i] = matrix[n - i - 1][n - j - 1];
+      matrix[n - i - 1][n - j - 1] = matrix[j][n - i - 1];
+      matrix[j][n - i - 1] = temp;
+    }
   }
-  if (carry > 0) {
-    curr.next = new ListNode(carry);
-  }
-  return dummy.next;
 }
