@@ -1,17 +1,14 @@
-function combinationSum(candidates, target) {
-  const result = [];
-  backtrack([], 0, 0);
-  return result;
-  function backtrack(combination, start, sum) {
-    if (sum === target) {
-      result.push([...combination]);
-      return;
+function rob(nums) {
+  if (nums.length === 1) return nums[0];
+  const robRange = (start, end) => {
+    let prevMax = 0;
+    let currMax = 0;
+    for (let i = start; i <= end; i++) {
+      const temp = currMax;
+      currMax = Math.max(currMax, prevMax + nums[i]);
+      prevMax = temp;
     }
-    if (sum > target) return;
-    for (let i = start; i < candidates.length; i++) {
-      combination.push(candidates[i]);
-      backtrack(combination, i, sum + candidates[i]);
-      combination.pop();
-    }
-  }
+    return currMax;
+  };
+  return Math.max(robRange(0, nums.length - 2), robRange(1, nums.length - 1));
 }
